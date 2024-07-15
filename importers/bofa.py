@@ -44,7 +44,14 @@ class CreditCardImporter(importer.ImporterProtocol):
 
         with open(f.name) as f:
             for index, row in enumerate(csv.DictReader(f)):
-                trans_date = parse(row['Posted Date']).date()
+                trans = row['Posted Date']
+
+                # filter out pending charges (TEMPREV) from export
+                if trans.split() != '':
+                    trans_date = parse(trans).date()
+                else:
+                    continue
+
                 trans_desc = row['Payee']
                 trans_amt  = row['Amount']
 
