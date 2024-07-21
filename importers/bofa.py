@@ -46,7 +46,6 @@ class CreditCardImporter(importer.ImporterProtocol):
             for index, row in enumerate(csv.DictReader(f)):
 
                 if row['Reference Number'].startswith('TEMPRE'):
-                    logging.error("%s", row)
                     continue
 
                 trans_date = parse(row['Posted Date']).date()
